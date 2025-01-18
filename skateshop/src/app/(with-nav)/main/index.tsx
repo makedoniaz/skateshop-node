@@ -6,12 +6,18 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
+import { GoArrowRight } from "react-icons/go";
+import { ProductCard } from "@/components/shared/product-card";
+import { ItemProps } from "@/components/helpers/interfaces/items";
+
+
 import { Github } from "lucide-react";
 
 import Link from "next/link";
 
 import { HiOutlineCube } from "react-icons/hi";
 import { navbar } from "@/data/navbar";
+import { items } from "@/data/items";
 
 export default async function Main() {
   return (
@@ -75,6 +81,31 @@ export default async function Main() {
           ))}
         </div>
       </div>
+
+      <section className="container mx-auto px-4 pb-24 max-w-6xl">
+        <div className="flex items-center justify-between gap-4">
+          <div className="flex flex-col ">
+            <h2 className="text-3xl font-semibold">Featured products</h2>
+            <p className="text-zinc-500">
+              Explore products from around the world
+            </p>
+          </div>
+          <div className="flex">
+            <Link href="/" className="text-zinc-800">
+              <Button variant="outline" className="text-white font-medium">
+                <span>View all products</span> <GoArrowRight />
+              </Button>
+            </Link>
+          </div>
+        </div>
+        <div className="grid gap-6 mt-8 sm:grid-cols-2 lg:grid-cols-4">
+          {items.map((product: ItemProps) => (
+            <Link key={product.id} href={product.path}>
+              <ProductCard product={product} />
+            </Link>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }
