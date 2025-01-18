@@ -26,7 +26,10 @@ export default async function ProductCategory({ params }: ProdProps) {
       <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8">
         <div className="aspect-square relative overflow-hidden rounded-lg">
           <Image
-            src="https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png"
+            src={
+              product?.imageUrl ||
+              "https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png"
+            }
             alt={product?.name || "No image"}
             fill
             className="object-cover"
@@ -37,22 +40,22 @@ export default async function ProductCategory({ params }: ProdProps) {
           <div>
             <div>
               <h1 className="text-2xl font-bold mb-2">
-                Product Name
+                {product?.name || "Product not found"}
               </h1>
               <p className="text-zinc-400">
-                Description
+                {product?.category || "Description not found"}
               </p>
             </div>
 
             <div>
               <p className="font-bold">
-                $100
+                ${product?.price || "Price not found"}
               </p>
             </div>
 
             <div>
               <p className="text-zinc-400">
-                In Stock
+                {product?.stockCount || "Stock not found"} in stock
               </p>
             </div>
 
@@ -61,7 +64,7 @@ export default async function ProductCategory({ params }: ProdProps) {
                 <Star
                   key={i}
                   className={`w-5 h-5 ${
-                    i < 0
+                    i < (product?.rating || 0)
                       ? "text-yellow-400"
                       : "text-gray-400"
                   }`}
@@ -87,7 +90,7 @@ export default async function ProductCategory({ params }: ProdProps) {
             <div className="mt-8 flex flex-col gap-4">
               <h2 className="text-xl font-bold">Description</h2>
               <p className="text-zinc-400">
-                Description
+                {product?.description || "Description not found"}
               </p>
             </div>
           </div>
