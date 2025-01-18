@@ -12,10 +12,12 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-import { SearchDialog } from "@/components/shared/search-dialog/search-dialog";
+
+import { SearchDialog } from "@/components/shared/search-diaglog";
 import { Button } from "@/components/ui/button";
 
 import { LuShoppingCart } from "react-icons/lu";
+import { Sidebar } from "@/components/shared/sidebar";
 
 const navbarItems: {
   name: string;
@@ -256,9 +258,7 @@ export function NavBar() {
         </div>
         <div className="flex items-center gap-4">
           <SearchDialog />
-          <button className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground size-9 relative" aria-label="Open cart" type="button">
-            <LuShoppingCart />
-          </button>
+          <Sidebar />
           <Button>
             <Link href="/auth/signin">Sign in </Link>
           </Button>
