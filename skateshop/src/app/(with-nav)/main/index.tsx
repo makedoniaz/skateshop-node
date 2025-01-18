@@ -16,10 +16,20 @@ import { Github } from "lucide-react";
 import Link from "next/link";
 
 import { HiOutlineCube } from "react-icons/hi";
-import { navbar } from "@/data/navbar";
 import { items } from "@/data/items";
+import { NavBarProps } from "@/components/helpers/interfaces/navbar";
+
+
 
 export default async function Main() {
+  const [itemsResponse, navbarResponse] = await Promise.all([
+    fetch(`${process.env.API_HOST}/items`),
+    fetch(`${process.env.API_HOST}/navbar`),
+  ]);
+  
+  const items = await itemsResponse.json();
+  const navbar = await navbarResponse.json();
+
   return (
     <div className="container">
       <div className="container py-24 text-center animate-fadeUp">
@@ -59,7 +69,7 @@ export default async function Main() {
 
       <div className="container mx-auto px-4 pb-24 max-w-6xl animate-fadeUp duration-700">
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {navbar.map((product) => (
+          {navbar.map((product: NavBarProps) => (
             <Link key={product.name} href={product.items[0].href}>
               <Card className="border-zinc-800 max-h-[186px] h-full transition-all duration-200 hover:bg-zinc-900">
                 <CardHeader className="h-full flex flex-col justify-between">

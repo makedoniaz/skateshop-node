@@ -1,6 +1,3 @@
-import Link from "next/link";
-import { RxRocket } from "react-icons/rx";
-
 interface Props {
   params: {
     category: string;
