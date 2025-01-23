@@ -1,12 +1,11 @@
-import { ItemProps } from "@/components/helpers/interfaces/items";
 import QuantitySelector from "@/components/shared/quantity-selector";
-import { Button } from "@/components/ui/button";
-import { Heart, Star } from "lucide-react";
 import Image from "next/image";
 
-import { items } from "@/data/items";
+import { Button } from "@/components/ui/button";
+import { Heart, Star } from "lucide-react";
 
 import { Separator } from "@/components/ui/separator"
+import { ItemProps } from "@/components/helpers/interfaces/items";
 
 
 
@@ -19,9 +18,12 @@ interface ProdProps {
 export default async function ProductCategory({ params }: ProdProps) {
   const { path } = await params;
 
+  const response = await fetch(`${process.env.API_HOST}/items`);
+  const items = await response.json();
+
   const product = items
-    .flatMap((item) => item)
-    .find((item) => item.path === `/products/${path}`);
+    .flatMap((item : ItemProps) => item)
+    .find((item : ItemProps) => item.path === `/products/${path}`);
 
   return (
     <div className="min-h-screen container p-5">

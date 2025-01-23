@@ -16,7 +16,6 @@ import { Github } from "lucide-react";
 import Link from "next/link";
 
 import { HiOutlineCube } from "react-icons/hi";
-import { items } from "@/data/items";
 import { NavBarProps } from "@/components/helpers/interfaces/navbar";
 
 

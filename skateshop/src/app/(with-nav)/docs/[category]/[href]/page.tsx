@@ -1,5 +1,3 @@
-// import { navbar } from "@/data/navbar";
-
 import { NavBarProps } from "@/components/helpers/interfaces/navbar";
 
 interface PageProps {
