@@ -1,9 +1,9 @@
-"use client";
-
-import * as React from "react";
 import Link from "next/link";
+import * as React from "react";
 
-import { cn } from "@/lib/utils";
+import { SearchDialog } from "@/components/shared/search-dialog";
+
+import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -13,15 +13,20 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 
-import { SearchDialog } from "@/components/shared/search-diaglog";
-import { Button } from "@/components/ui/button";
-
+import { cn } from "@/lib/utils";
 import { Sidebar } from "@/components/shared/sidebar";
 
 import { NavBarProps } from "@/components/helpers/interfaces/navbar";
-import { navbar } from "@/data/navbar";
+import NavItem from "@/components/shared/nav-item";
+// import { navbar } from "@/data/navbar";
 
-export function NavBar() {
+export async function NavBar() {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/navbar`);
+  if (!response.ok) {
+    throw new Error("Failed to load navbar data");
+  }
+  const navbar = await response.json();
+
   return (
     <div className="border-b py-4">
       <div className="container flex items-center justify-between">
@@ -68,23 +73,8 @@ export function NavBar() {
                 </NavigationMenuContent>
               </NavigationMenuItem>
 
-              {navbar.map((navItem : NavBarProps) => (
-                <NavigationMenuItem key={navItem.id}>
-                  <NavigationMenuTrigger>{navItem.name}</NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-                      {navItem.items.map((component) => (
-                        <ListItem
-                          key={component.title}
-                          title={component.title}
-                          href={component.href}
-                        >
-                          {component.description}
-                        </ListItem>
-                      ))}
-                    </ul>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
+              {navbar.map((navItem: NavBarProps) => (
+                <NavItem key={navItem.id} item={navItem} />
               ))}
             </NavigationMenuList>
           </NavigationMenu>

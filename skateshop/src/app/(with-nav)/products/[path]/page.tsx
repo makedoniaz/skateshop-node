@@ -18,7 +18,7 @@ interface ProdProps {
 export default async function ProductCategory({ params }: ProdProps) {
   const { path } = await params;
 
-  const response = await fetch(`${process.env.API_HOST}/items`);
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/items`);
   const items = await response.json();
 
   const product = items

@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -6,32 +7,31 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-import { GoArrowRight } from "react-icons/go";
-import { ProductCard } from "@/components/shared/product-card";
-import { ItemProps } from "@/components/helpers/interfaces/items";
-
-
 import { Github } from "lucide-react";
 
 import Link from "next/link";
 
 import { HiOutlineCube } from "react-icons/hi";
+import { GoArrowRight } from "react-icons/go";
+import { ProductCard } from "@/components/shared/product-card";
+import { ItemProps } from "@/components/helpers/interfaces/items";
 import { NavBarProps } from "@/components/helpers/interfaces/navbar";
 
-
+// import { navbar } from "@/data/navbar";
 
 export default async function Main() {
-  const [itemsResponse, navbarResponse] = await Promise.all([
-    fetch(`${process.env.API_HOST}/items`),
-    fetch(`${process.env.API_HOST}/navbar`),
-  ]);
-  
-  const items = await itemsResponse.json();
-  const navbar = await navbarResponse.json();
+  // Your api call ....
+  // return json() and integrate to page
+
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/navbar`);
+  const navbar: NavBarProps[] = await res.json();
+
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/items`);
+  const items = await response.json();
 
   return (
-    <div className="container">
-      <div className="container py-24 text-center animate-fadeUp">
+    <main className="container">
+      <section className="container py-24 text-center animate-fadeUp">
         <div className="mb-8 flex justify-center">
           <Link href="https://github.com/sadmann7/skateshop" target="_black">
             <Button
@@ -64,11 +64,11 @@ export default async function Main() {
             Sell now
           </Button>
         </div>
-      </div>
+      </section>
 
-      <div className="container mx-auto px-4 pb-24 max-w-6xl animate-fadeUp duration-700">
+      <section className="container mx-auto px-4 pb-24 max-w-6xl animate-fadeUp duration-700">
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {navbar.map((product: NavBarProps) => (
+          {navbar.map((product) => (
             <Link key={product.name} href={product.items[0].href}>
               <Card className="border-zinc-800 max-h-[186px] h-full transition-all duration-200 hover:bg-zinc-900">
                 <CardHeader className="h-full flex flex-col justify-between">
@@ -89,7 +89,7 @@ export default async function Main() {
             </Link>
           ))}
         </div>
-      </div>
+      </section>
 
       <section className="container mx-auto px-4 pb-24 max-w-6xl">
         <div className="flex items-center justify-between gap-4">
@@ -115,6 +115,6 @@ export default async function Main() {
           ))}
         </div>
       </section>
-    </div>
+    </main>
   );
 }
