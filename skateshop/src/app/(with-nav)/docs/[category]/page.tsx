@@ -1,7 +1,6 @@
-import { ProductCard } from "@/components/shared/product-card";
-import ProductsContainer from "@/components/shared/product-container";
-import { Link } from "lucide-react";
 import { CategoryProps } from "@/components/helpers/interfaces/category";
+import { ProductCard } from "@/components/shared/product-card";
+import Link from "next/link";
 
 interface Props {
   params: {
@@ -36,7 +35,9 @@ export default async function CategoryPage({ params }: Props) {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
         {items.map((product: CategoryProps) => (
-          <Link key={product.id} href={product.href}>TEST</Link>
+          <Link key={product.id} href={product.href}>
+             <ProductCard product={product} />
+          </Link>
         ))}
       </div>
     </div>

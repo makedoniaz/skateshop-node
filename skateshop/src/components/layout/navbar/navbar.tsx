@@ -18,7 +18,6 @@ import { Sidebar } from "@/components/shared/sidebar";
 
 import { NavBarProps } from "@/components/helpers/interfaces/navbar";
 import NavItem from "@/components/shared/nav-item";
-// import { navbar } from "@/data/navbar";
 
 export async function NavBar() {
   const response = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/navbar`);

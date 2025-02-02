@@ -23,7 +23,7 @@ export default async function ProductCategory({ params }: ProdProps) {
 
   const product = items
     .flatMap((item : ItemProps) => item)
-    .find((item : ItemProps) => item.path === `/products/${path}`);
+    .find((item : ItemProps) => item.href === `/products/${path}`);
 
   return (
     <div className="min-h-screen container p-5">

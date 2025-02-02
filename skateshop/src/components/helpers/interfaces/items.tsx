@@ -3,7 +3,7 @@ export interface ItemProps {
     name: string;
     price: string;
     imageUrl: string;
-    path: string;
+    href: string;
     description: string;
     stockCount: string;
     category: string;

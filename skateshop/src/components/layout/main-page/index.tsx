@@ -109,7 +109,7 @@ export default async function Main() {
         </div>
         <div className="grid gap-6 mt-8 sm:grid-cols-2 lg:grid-cols-4">
           {items.map((product: ItemProps) => (
-            <Link key={product.id} href={product.path}>
+            <Link key={product.id} href={product.href}>
               <ProductCard product={product} />
             </Link>
           ))}

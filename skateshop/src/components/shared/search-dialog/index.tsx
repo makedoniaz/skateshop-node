@@ -2,32 +2,32 @@
 import * as React from "react";
 
 import {
-  Calculator,
-  Calendar,
-  CreditCard,
-  Settings,
-  Smile,
-  User,
-} from "lucide-react";
-
-import {
   Command,
   CommandEmpty,
-  CommandGroup,
   CommandInput,
-  CommandItem,
-  CommandList,
-  CommandSeparator,
-  CommandShortcut,
+  CommandList
 } from "@/components/ui/command";
-import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 import { IoSearchOutline } from "react-icons/io5";
+import SearchResult from "./search-result";
+import SearchSuggestion from "./search-suggestion";
+import { SearchItemProps } from "@/components/helpers/interfaces/search-item";
+import { searchItems } from "@/utils/actions/search-items";
+
 
 export function SearchDialog() {
+  const router = useRouter();
   const [open, setOpen] = React.useState(false);
+  const [searchQuery, setSearchQuery] = React.useState("");
+  const [searchResult, setSearchResult] = React.useState<SearchItemProps[]>([]);
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -39,6 +39,27 @@ export function SearchDialog() {
     document.addEventListener("keydown", down);
     return () => document.removeEventListener("keydown", down);
   }, []);
+
+  React.useEffect(() => {
+    const timer = setTimeout(async () => {
+      if (searchQuery) {
+        try {
+          const result = await searchItems(searchQuery)
+
+          setSearchResult(result);
+        } catch (error) {
+          console.error("Search failed", error);
+          setSearchResult([]);
+        }
+      }
+      return () => clearTimeout(timer);
+    }, 250);
+  }, [searchQuery]);
+
+  const handleResultSelect = (result: SearchItemProps) => {
+    router.push(result.href);
+    setOpen(false);
+  };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -56,41 +77,22 @@ export function SearchDialog() {
       <DialogContent>
         <DialogTitle className="sr-only">Search products ...</DialogTitle>
         <Command className="rounded-lg border shadow-md md:min-w-[450px]">
-          <CommandInput placeholder="Type a command or search..." />
+          <CommandInput
+            placeholder="Type a command or search..."
+            value={searchQuery}
+            onValueChange={setSearchQuery}
+          />
           <CommandList>
-            <CommandEmpty>No results found.</CommandEmpty>
-            <CommandGroup heading="Suggestions">
-              <CommandItem>
-                <Calendar />
-                <span>Calendar</span>
-              </CommandItem>
-              <CommandItem>
-                <Smile />
-                <span>Search Emoji</span>
-              </CommandItem>
-              <CommandItem disabled>
-                <Calculator />
-                <span>Calculator</span>
-              </CommandItem>
-            </CommandGroup>
-            <CommandSeparator />
-            <CommandGroup heading="Settings">
-              <CommandItem>
-                <User />
-                <span>Profile</span>
-                <CommandShortcut>⌘P</CommandShortcut>
-              </CommandItem>
-              <CommandItem>
-                <CreditCard />
-                <span>Billing</span>
-                <CommandShortcut>⌘B</CommandShortcut>
-              </CommandItem>
-              <CommandItem>
-                <Settings />
-                <span>Settings</span>
-                <CommandShortcut>⌘S</CommandShortcut>
-              </CommandItem>
-            </CommandGroup>
+            {searchQuery.trim() === "" ? (
+              <SearchSuggestion />
+            ) : searchResult.length > 0 ? (
+              <SearchResult
+                result={searchResult}
+                onSelect={handleResultSelect}
+              />
+            ) : (
+              <CommandEmpty>No results found.</CommandEmpty>
+            )}
           </CommandList>
         </Command>
       </DialogContent>
