@@ -9,15 +9,13 @@ interface Props {
 }
 
 export default async function CategoryPage({ params }: Props) {
-  const { category } = await params;
+  const { category } = params;
 
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_HOST}/docs/${category}`
   );
 
   const items = await response.json();
-
-  console.log(items);
 
   // Your code here ....
   // Get data from API
