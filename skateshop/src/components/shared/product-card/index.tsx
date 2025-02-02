@@ -19,7 +19,7 @@ type ProductCardProps = {
 
 export function ProductCard({ product }: ProductCardProps) {
   const pathname = usePathname();
-  const isDocs = pathname.startsWith("/docs");
+  const isCategoriesPage = /^\/docs\/[^/]+$/.test(pathname);
 
   const { setProducts } = useProductStore();
 
@@ -55,7 +55,7 @@ export function ProductCard({ product }: ProductCardProps) {
       </CardHeader>
       <CardContent className="p-4">
         <h3 className="font-medium text-lg">
-          {!isDocs && "name" in product
+          {!isCategoriesPage && "name" in product
             ? `${product.name.charAt(0).toUpperCase()}${product.name
                 .slice(1)
                 .toLowerCase()}`
@@ -63,10 +63,10 @@ export function ProductCard({ product }: ProductCardProps) {
             ? product.title
             : ""}
         </h3>
-        {!isDocs && "price" in product && (
+        {!isCategoriesPage && "price" in product && (
           <p className="text-sm text-zinc-400">${product.price}</p>
         )}
-        {isDocs && "description" in product && (
+        {isCategoriesPage && "description" in product && (
           <p className="text-sm text-zinc-400">{product.description}</p>
         )}
       </CardContent>
@@ -75,9 +75,9 @@ export function ProductCard({ product }: ProductCardProps) {
           className="flex-1 hover:bg-zinc-900 hover:text-white hover:border hover:border-white transition-all duration-200"
           onClick={(event) => addProducts(event, product as ItemProps)}
         >
-          {isDocs ? "View products" : "Add to card"}
+          {isCategoriesPage ? "View products" : "Add to card"}
         </Button>
-        {!isDocs && (
+        {!isCategoriesPage && (
           <Button size={"icon"} variant={"outline"}>
             <Eye />
           </Button>
