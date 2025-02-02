@@ -1,11 +1,9 @@
-import QuantitySelector from "@/components/shared/quantity-selector";
 import Image from "next/image";
-
-import { Button } from "@/components/ui/button";
-import { Heart, Star } from "lucide-react";
+import { Star } from "lucide-react";
 
 import { Separator } from "@/components/ui/separator"
 import { ItemProps } from "@/components/helpers/interfaces/items";
+import CardAction from "@/components/shared/card-action";
 
 
 
@@ -80,23 +78,9 @@ export default async function ProductCategory({ params }: ProdProps) {
                   />
                 ))}
               </div>
-
-              <Button variant={"outline"} className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80 size-8 shrink-0">
-                <Heart className="w-4 h-4" />
-              </Button>
             </div>
 
-            <QuantitySelector />
-
-            <div className="flex gap-4 max-w-[260px] mb-3">
-              <Button className="flex-1 bg-white hover:bg-zinc-200">
-                Buy now{" "}
-              </Button>
-              <Button variant={"outline"} className="flex-1 border-zinc-800">
-                Add to card
-              </Button>
-            </div>
-            
+            {product ? <CardAction product={product} /> : <p>Product not found</p>}  
             <Separator />
 
             <div className="mt-3 flex flex-col gap-4">

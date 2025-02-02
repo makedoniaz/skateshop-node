@@ -13,7 +13,6 @@ export default function QuantitySelector({ product }: QuantitySelectorProps) {
   const { products, setProducts } = useProductStore();
 
   const current = products.find((p) => p.id === product.id);
-
   const count = current ? current.quantity : 1;
 
   const increment = () => {
@@ -23,6 +22,7 @@ export default function QuantitySelector({ product }: QuantitySelectorProps) {
       )
     );
   };
+
   const decrement = () => {
     if (count > 1) {
       setProducts((prev) =>
