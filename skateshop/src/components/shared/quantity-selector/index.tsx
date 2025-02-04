@@ -6,19 +6,19 @@ import { useProductStore } from "@/store";
 import { MinusIcon, PlusIcon } from "lucide-react";
 
 interface QuantitySelectorProps {
-  product: ItemProps;
+  id: number;
 }
 
-export default function QuantitySelector({ product }: QuantitySelectorProps) {
+export default function QuantitySelector({ id }: QuantitySelectorProps) {
   const { products, setProducts } = useProductStore();
 
-  const current = products.find((p) => p.id === product.id);
+  const current = products.find((p) => p.id === id);
   const count = current ? current.quantity : 1;
 
   const increment = () => {
     setProducts((prev) =>
       prev.map((p) =>
-        p.id === product.id ? { ...p, quantity: p.quantity + 1 } : p
+        p.id === id ? { ...p, quantity: p.quantity + 1 } : p
       )
     );
   };
@@ -27,7 +27,7 @@ export default function QuantitySelector({ product }: QuantitySelectorProps) {
     if (count > 1) {
       setProducts((prev) =>
         prev.map((p) =>
-          p.id === product.id ? { ...p, quantity: p.quantity - 1 } : p
+          p.id === id ? { ...p, quantity: p.quantity - 1 } : p
         )
       );
     }

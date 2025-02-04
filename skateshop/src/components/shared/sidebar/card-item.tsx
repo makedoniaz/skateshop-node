@@ -10,13 +10,11 @@ export default function CardItem({
   name,
   price,
   imageUrl,
-  href,
   description,
-  stockCount,
 }: ItemProps) {
   const { setProducts } = useProductStore();
 
-  const removeItem = (id: string) => {
+  const removeItem = (id: number) => {
     setProducts((prev) => prev.filter((prod) => prod.id !== id));
   };
 
@@ -31,7 +29,7 @@ export default function CardItem({
       </div>
 
       <div className="flex items-center space-x-2">
-        <QuantitySelector product={{ id }} />
+        <QuantitySelector id={ id } />
 
         <Button variant="outline" size="icon" onClick={() => removeItem(id)}>
           <Trash2 />
