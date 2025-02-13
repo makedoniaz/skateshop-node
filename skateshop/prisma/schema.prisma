@@ -24,7 +24,44 @@ model Product {
 
     name     String
     imageUrl String
+    price       Decimal
+    href        String
+    description String
+    stockCount  Int
 
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    categoryId  Int
+    category    Category @relation(fields: [categoryId], references: [id], name: "CategoryToProduct")
+
+    subCategoryId Int
+    subCategory   SubCategory @relation("SubCategoryToProduct", fields: [subCategoryId], references: [id])
+
+    rating      Int
+    quantity    Int      @default(1)
+
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+}
+
+model Category {
+    id Int @id @default(autoincrement())
+
+    name     String
+    description String @default("None")
+    href    String
+
+    subcategories   SubCategory[]
+    products  Product[] @relation("CategoryToProduct")
+}
+
+model SubCategory {
+    id Int @id @default(autoincrement())
+
+    name     String
+    description String @default("None")
+    href String
+
+    categoryId  Int
+    category    Category @relation(fields: [categoryId], references: [id])
+
+    products    Product[]     @relation("SubCategoryToProduct") // Если нужно
 }

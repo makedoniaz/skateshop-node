@@ -68,20 +68,20 @@ export default async function Main() {
 
       <section className="container mx-auto px-4 pb-24 max-w-6xl animate-fadeUp duration-700">
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {navbar.map((product) => (
-            <Link key={product.name} href={product.items[0].href}>
+          {navbar.map((category) => (
+            <Link key={category.name} href={category.subcategories[0].href}>
               <Card className="border-zinc-800 max-h-[186px] h-full transition-all duration-200 hover:bg-zinc-900">
                 <CardHeader className="h-full flex flex-col justify-between">
                   <div className="flex flex-col py-3 gap-2">
-                    <CardTitle>{product.name}</CardTitle>
+                    <CardTitle>{category.name}</CardTitle>
                     <CardDescription className="text-zinc-400">
-                      {product.description}
+                      {category.description}
                     </CardDescription>
                   </div>
                   <div className="mt-4 flex items-center text-sm text-zinc-400 gap-1 ">
                     <HiOutlineCube />
                     <span className="mt-[-2px]">
-                      {product.items.length} products
+                      {category.subcategories.length} products
                     </span>
                   </div>
                 </CardHeader>

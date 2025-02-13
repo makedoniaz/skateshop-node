@@ -1,6 +1,16 @@
 import { NextResponse } from 'next/server';
-import { navbar } from '@/data/navbar';
+import { prisma } from '../../../../prisma/prisma-client';
 
 export async function GET() {
-    return NextResponse.json(navbar);
+    try {
+        const categories = await prisma.category.findMany({
+            include: {
+                subcategories: true,
+            },
+        })
+        return NextResponse.json(categories);
+    } catch (error) {
+      console.error("Ошибка при получении navbar:", error);
+      return NextResponse.json({ error: "Ошибка сервера" }, { status: 500 });
+    }
 }

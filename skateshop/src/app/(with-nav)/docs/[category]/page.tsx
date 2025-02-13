@@ -1,4 +1,5 @@
 import { CategoryProps } from "@/components/helpers/interfaces/category";
+import { NavBarProps } from "@/components/helpers/interfaces/navbar";
 import { ProductCard } from "@/components/shared/product-card";
 import Link from "next/link";
 
@@ -17,8 +18,7 @@ export default async function CategoryPage({ params }: Props) {
 
   const items = await response.json();
 
-  // Your code here ....
-  // Get data from API
+  console.log(items)
 
   return (
     <div className="container mt-10 flex flex-col gap-8">
@@ -32,9 +32,9 @@ export default async function CategoryPage({ params }: Props) {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
-        {items.map((product: CategoryProps) => (
-          <Link key={product.id} href={product.href}>
-             <ProductCard product={product} />
+        {items.subcategories.map((subcategory: CategoryProps) => (
+          <Link key={subcategory.id} href={subcategory.href}>
+             <ProductCard product={subcategory} />
           </Link>
         ))}
       </div>

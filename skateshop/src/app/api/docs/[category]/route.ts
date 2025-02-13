@@ -1,14 +1,21 @@
-import { navbar } from "@/data/navbar";
 import { NextResponse } from "next/server";
+import { prisma } from "../../../../../prisma/prisma-client";
 
 export async function GET(req: Request, { params }: { params: { category: string } }) {
-    const { category } = params;
+    try {
+        const category = await prisma.category.findFirst({
+            where: {
+                name: params.category.charAt(0).toUpperCase() + params.category.slice(1).toLowerCase(),
+            },
 
-    const item = navbar.find(elem => elem.category.toLowerCase() === category.toLowerCase())
+            include: {
+                subcategories: true,
+            },
+        })
 
-    if (!item) {
-        return NextResponse.json({ error: "Category not found" }, { status: 404 })
+        return NextResponse.json(category);
+    } catch (error) {
+        console.error("Ошибка при получении navbar:", error);
+        return NextResponse.json({ error: "Ошибка сервера" }, { status: 500 });
     }
-
-    return NextResponse.json(item.items)
 }
