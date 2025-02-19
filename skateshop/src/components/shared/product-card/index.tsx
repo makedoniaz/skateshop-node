@@ -55,7 +55,7 @@ export function ProductCard({ product }: ProductCardProps) {
       </CardHeader>
       <CardContent className="p-4">
         <h3 className="font-medium text-lg">
-          {!isCategoriesPage && "name" in product
+          {"name" in product
             ? `${product.name.charAt(0).toUpperCase()}${product.name
                 .slice(1)
                 .toLowerCase()}`

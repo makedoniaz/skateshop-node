@@ -23,8 +23,6 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 export async function NavBar() {
   const session = await getServerSession(authOptions);
-  console.log(session)
-
   const response = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/navbar`);
 
   if (!response.ok) {
@@ -33,7 +31,7 @@ export async function NavBar() {
   const navbar = await response.json();
 
   return (
-    <div className="border-b py-4">
+    <div className="border-b py-4 px-24">
       <div className="container flex items-center justify-between">
         <div className="flex items-center gap-4">
           <Link href="/" className="text-lg font-bold">

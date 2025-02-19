@@ -15,7 +15,7 @@ export async function GET(req: Request, { params }: { params: { category: string
 
         return NextResponse.json(category);
     } catch (error) {
-        console.error("Ошибка при получении navbar:", error);
-        return NextResponse.json({ error: "Ошибка сервера" }, { status: 500 });
+        console.error("Error while getting navbar:", error);
+        return NextResponse.json({ error: "Server Error!" }, { status: 500 });
     }
 }

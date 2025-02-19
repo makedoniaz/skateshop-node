@@ -5,7 +5,7 @@ export default function Footer() {
     const [email, setEmail] = useState("");
 
     return (
-    <footer className="w-full border-t bg-background">
+    <footer className="w-full border-t bg-background px-24">
        <div className="grid items-center gap-8 pb-8 pt-6 lg:py-6 container">
         <div>
             <div className="flex flex-col gap-10 lg:flex-row lg:gap-20">

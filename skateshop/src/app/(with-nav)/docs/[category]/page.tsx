@@ -1,5 +1,4 @@
 import { CategoryProps } from "@/components/helpers/interfaces/category";
-import { NavBarProps } from "@/components/helpers/interfaces/navbar";
 import { ProductCard } from "@/components/shared/product-card";
 import Link from "next/link";
 
@@ -17,8 +16,6 @@ export default async function CategoryPage({ params }: Props) {
   );
 
   const items = await response.json();
-
-  console.log(items)
 
   return (
     <div className="container mt-10 flex flex-col gap-8">

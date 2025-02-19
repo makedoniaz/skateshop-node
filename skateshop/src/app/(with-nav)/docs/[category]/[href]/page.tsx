@@ -11,10 +11,8 @@ interface PageProps {
 }
 
 export default async function ProductPage({ params }: PageProps) {
-  const { category, href } = params;
+  const { category, href } = await params;
   const response = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/docs/${category}/${href}`);
-
-  console.log(`${process.env.NEXT_PUBLIC_API_HOST}/${category}/${href}`)
 
   const items = await response.json();
 
